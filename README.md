@@ -1,27 +1,25 @@
-# STM32 GNSS/IMU Telemetry Logger
+# GNSS Flight Telemetry Logger
 
 ## Overview
 
-This project is a custom STM32 based sensor board for collecting motion and position data, logging it locally, whilst transmitting selected telemetry wirelessly. The motivation for this project originally stemmed from the idea of being able to log and wirelessly transmit the orientation and position data of a drone. 
+This project is a small embedded telemetry and data-logging system for collecting GNSS position data, logging sensor data, and transmitting low-rate telemetry over LoRa.
 
-The board will feature an onboard IMU, GNSS module, microSD storage, and an external LoRa module to transmit to a receiving device. The  goal for this project is to build a complete embedded hardware system to build upon the microcontroller breakout board I previously worked on, and touching base on a few areas of electronics I'm interested in. 
+The goal is to build practical experience with embedded systems, avionics-style telemetry, PCB design, sensor interfaces, and post-test data analysis.
 
 ## Planned Features
 
-- STM32 microcontroller
-- Onboard 6-axis IMU
-- Onboard GNSS module
-- microSD card slot for local logging
-- USC-C input for power
-- 3V3 voltage regulation
-- SWD programming/debug header
-- Status LEDs
-- Reset button
-- Connector for external LoRa module
-- Computer-side visualization for orientation and GNSS data
+- Read GNSS position/time data over UART
+- Log data to a microSD card
+- Transmit selected telemetry over LoRa
+- Read IMU data for local logging and filtering experiments
+- Monitor basic system health such as packet count, sensor status, and supply voltage
+- Design a custom PCB with USB-C power, 3.3 V regulation, SWD programming, GNSS, LoRa, IMU, and SD card
 
-## Project Status
+## System Architecture
 
-Planning stage
-
-> Read about more detailed project specifications under docs/project-spec.md
+```text
+GNSS ─┐
+IMU  ─┼──> MCU ───> microSD logging
+      │        └──> LoRa telemetry
+      │        └──> SWD debug/programming
+      └──> optional system-health monitoring
